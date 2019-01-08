@@ -2,6 +2,10 @@ version: '2'
 services:
   filebeat:
     image: carsten231286/filebeat
+    environment:
+      HOSTURL: "${HOSTURL}"
+      ENVIRONMENT: "${ENVIRONMENT}"
+      PROTOCOL: "${PROTOCOL}"
     command: "--strict.perms=false -v -e -d autodiscover,docker"
     user: root
     stdin_open: true
