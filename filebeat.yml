@@ -1,9 +1,11 @@
-publish_async: true
+spool_size: 9000
+idle_timeout: 180s
 filebeat.inputs:
   - type: docker
     enabled: true
     containers.ids:
       - '*'
+    ignore_older: 24h
     fields_under_root: true
     fields:
         rancher.environment: ##ENVIRONMENT##      
@@ -16,4 +18,3 @@ processors:
           to: "stack_service_container"
 output.elasticsearch:
   hosts: ["##PROTOCOL##://##HOSTURL##"]
-  worker: 2
