@@ -17,4 +17,6 @@ processors:
         - from: "docker.container.labels.io.rancher.stack_service.name"
           to: "stack_service_container"
 output.elasticsearch:
+  username: ##username##
+  password: ##password##
   hosts: ["##PROTOCOL##://##HOSTURL##"]
