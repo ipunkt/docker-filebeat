@@ -20,3 +20,10 @@ output.elasticsearch:
   username: ##USERNAME##
   password: ##PASSWORD##
   hosts: ["##PROTOCOL##://##HOSTURL##"]
+  indices:
+    - index: "warning-%{[beat.version]}-%{+yyyy.MM.dd}"
+      when.contains:
+        message: "WARN"
+    - index: "error-%{[beat.version]}-%{+yyyy.MM.dd}"
+      when.contains:
+        message: "ERR"
