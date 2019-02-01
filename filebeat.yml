@@ -20,6 +20,8 @@ output.elasticsearch:
   username: ##USERNAME##
   password: ##PASSWORD##
   hosts: ["##PROTOCOL##://##HOSTURL##"]
+  loadbalance: true
+  worker: 2
   indices:
     - index: "warning-%{[beat.version]}-%{+yyyy.MM.dd}"
       when.contains:
