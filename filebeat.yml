@@ -5,13 +5,17 @@ filebeat.inputs:
     enabled: true
     containers.ids:
       - '*'
-    ignore_older: 24h
+    ignore_older: 6h
     fields_under_root: true
     fields:
         rancher.environment: ##ENVIRONMENT##      
 filebeat.autodiscover: ~
 processors:
   - add_docker_metadata: ~
+  - drop_event:
+      when:
+        regex:
+          docker.container.image: ".*filebeat.*"
   - rename:
       fields:
         - from: "docker.container.labels.io.rancher.stack_service.name"
@@ -19,13 +23,5 @@ processors:
 output.elasticsearch:
   username: ##USERNAME##
   password: ##PASSWORD##
-  hosts: ["##PROTOCOL##://##HOSTURL##"]
-  loadbalance: true
-  worker: 2
-  indices:
-    - index: "warning-%{[beat.version]}-%{+yyyy.MM.dd}"
-      when.contains:
-        message: "WARN"
-    - index: "error-%{[beat.version]}-%{+yyyy.MM.dd}"
-      when.contains:
-        message: "ERR"
+  hosts: [##HOSTURL##]
+  worker: 1
