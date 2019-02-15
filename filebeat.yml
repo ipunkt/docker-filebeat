@@ -14,7 +14,7 @@ processors:
   - add_docker_metadata: ~
   - drop_event:
       when:
-        regex:
+        regexp:
           docker.container.image: ".*filebeat.*"
   - rename:
       fields:
